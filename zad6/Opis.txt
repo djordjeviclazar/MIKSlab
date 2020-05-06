@@ -1,0 +1,15 @@
+	Sistem treba da testira brzinu reakcije. Na slede?i na?in se odvija program:
+Sistem ulazi u stanje odbrojavanja, cilj je da se korisnik pripremi da odreaguje zato se obrojava na displeju 3 sekunde 	(u programu stanje a)
+Generiše se nasumi?an broj pamti se u globalnoj promenljivoj random (za vreme stanja a se generisao, nakon toga se prelazi u stanje b). Promenljiva random predstavlja vreme koje je potrebno da se upali žuta dioda, da korisnik ne bi mogao da zna ta?an trenutak paljenja diode. Dioda svetli pola sekunde
+Sistem odbrojava vreme koje je potrebno korisniku (stanje c), na klik se generiše prekid i ispisuje se na displeju koliko vremena mu je trebalo da klikne, a ako u toku deset sekundi nije kliknuo ne?e se prikazati cifra ce? karakter '-'. Rezultat ?e ostati na displeju maksimalno 3 sekunde (stanje d).
+Sistem opet ulazi u stanje odbrojavanja (stanje a).
+
+Svaki klik koji se ne desi u okviru 10 sekundi nakon što zasvetli dioda ne?e biti registrovan. Pozva?e se prekidna procedura, ali ?e se odmah završiti nakon provere stanja.
+
+	Promene stanja realizovane su u okviru funkcije azuriranjeStanja(). Tu su definisani prelazi iz jednog u drugo stanje i globalna promenljiva indeks se menja u skladu s tim šta treba da se prikaže na displeju (ta promanljiva je pomeraj u odnosu na po?etnu adresu EEPROM). Tako?e ažurira se i promenljiva vreme koja služi da bi se pratilo koliko je sekundi prošlo u okviru odre?enog stanja. U okviru ove procedure se vrši i ažuriranje porta A na koji su povezane diode.
+
+	Procedura prikaz() služi da prikaže odre?enu cifur na displej ili da resetuje displej. ?ita iz EEPROM odgovaraju?i kod i prosle?uje na B1-7 bitove porta B.
+
+	Procedura upisTablice() upisuje hexa kodove u EEPROM, poziva se na po?etku glavne procedure.
+
+	Prekidna procedura ukoliko je sistem u stanju c (odbrojavanje nakon što dioda zasvetli) ažurira indeks i poziva proceduru za prikaz().
